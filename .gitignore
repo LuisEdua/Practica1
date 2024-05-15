@@ -1,0 +1,15 @@
+# Ignorar directorios de entornos virtuales
+.venv/
+venv/
+env/
+
+# Ignorar configuraciones de IDE (IntelliJ, PyCharm, otros)
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Ignorar archivos y carpetas de configuración de otros editores y herramientas
+.DS_Store
+Thumbs.db
