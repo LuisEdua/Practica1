@@ -3,6 +3,7 @@ package com.example.ordenesservice.Ordenes.Infrestructure.Repository.MySQLReposi
 import com.example.ordenesservice.Ordenes.Domain.Entities.OrdenProductos;
 import com.example.ordenesservice.Ordenes.Domain.Port.IOrdenProductosPort;
 import com.example.ordenesservice.Ordenes.Infrestructure.Models.MySQLModels.OrdenProductosModel;
+import com.example.ordenesservice.Ordenes.Infrestructure.Repository.MySQLRepositories.JPA.IOrdenProductosRepository;
 import com.example.ordenesservice.Ordenes.Infrestructure.dtos.responses.OrdenProductosResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,10 @@ import org.springframework.stereotype.Component;
 public class OrdenProductosRepository implements IOrdenProductosPort {
 
     @Autowired
-    OrdenRepository ordenRepository = new OrdenRepository();
+    OrdenRepository ordenRepository;
+
+    @Autowired
+    IOrdenProductosRepository repository;
 
     @Override
     public OrdenProductosResponse CrearOrdenProducto(OrdenProductos ordenProductos) {
@@ -20,7 +24,8 @@ public class OrdenProductosRepository implements IOrdenProductosPort {
         model.setProducto_id(ordenProductos.getProductoId());
         model.setOrden(ordenRepository.findAndEnsureExist(ordenProductos.getOrdenId()));
         model.setCantidad(ordenProductos.getCantidad());
-        return from(model);
+        model.setTotal(ordenProductos.getTotal());
+        return from(repository.save(model));
     }
 
     OrdenProductosResponse from(OrdenProductosModel ordenProductos) {
