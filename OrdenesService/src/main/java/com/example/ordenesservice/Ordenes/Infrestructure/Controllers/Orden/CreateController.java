@@ -33,12 +33,7 @@ public class CreateController {
         CreateOrdenResponse response = new CreateOrdenResponse();
         response.setOrden(orden);
         response.setProductos(productos);
-        BaseResponse resp = new BaseResponse();
-        resp.setData(response);
-        resp.setMessage("Orden creada con exito");
-        resp.setSuccess(true);
-        resp.setHttpStatus(HttpStatus.valueOf(201));
-        return resp;
+        return BaseResponse.builder().data(response).message("Orden creada con exito").success(true).httpStatus(HttpStatus.valueOf(201)).build();
     }
 
 }

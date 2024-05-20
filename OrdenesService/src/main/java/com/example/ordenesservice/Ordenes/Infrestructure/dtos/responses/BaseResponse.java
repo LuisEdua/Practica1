@@ -1,10 +1,11 @@
 package com.example.ordenesservice.Ordenes.Infrestructure.dtos.responses;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-@Setter @Getter
+@Getter @Builder
 public class BaseResponse {
 
     private Object data;

@@ -24,6 +24,14 @@ class ProductosRepository(ProductosPort):
         responses = [n.to_dict() for n in news]
         return self.generate_response(responses, "Productos creados exitosamente", True, 201)
 
+    def update_cantidad(self, id, menos_cantidad):
+        print(id)
+        producto = self.db.query(Model).filter(Model.id == id).first()
+        cantidad_actual = producto.stock
+        nueva_cantidad = cantidad_actual - menos_cantidad
+        producto.stock = nueva_cantidad
+        self.db.commit()
+
     def delete_productos(self, id):
         producto = self.db.query(Model).filter(Model.id == id).first()
         status = True

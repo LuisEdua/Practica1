@@ -16,5 +16,9 @@ class ProductosPort(ABC):
         pass
 
     @abstractmethod
+    def update_cantidad(self, id, menos_cantidad):
+        pass
+
+    @abstractmethod
     def delete_productos(self, id):
         pass

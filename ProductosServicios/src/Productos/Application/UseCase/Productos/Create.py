@@ -1,6 +1,5 @@
 from src.Productos.Domain.Ports.ProductosPort import ProductosPort as Port, Productos
 
-
 class CreateUseCase:
     def __init__(self, repository: Port):
         self.__repository = repository

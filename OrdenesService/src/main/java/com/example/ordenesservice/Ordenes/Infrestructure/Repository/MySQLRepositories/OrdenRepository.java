@@ -2,6 +2,7 @@ package com.example.ordenesservice.Ordenes.Infrestructure.Repository.MySQLReposi
 
 import com.example.ordenesservice.Ordenes.Domain.Entities.Orden;
 import com.example.ordenesservice.Ordenes.Domain.Port.IOrdenPort;
+import com.example.ordenesservice.Ordenes.Infrestructure.Exceptions.NotFoundException;
 import com.example.ordenesservice.Ordenes.Infrestructure.Models.MySQLModels.OrdenModel;
 import com.example.ordenesservice.Ordenes.Infrestructure.Repository.MySQLRepositories.JPA.IOrdenRepository;
 import com.example.ordenesservice.Ordenes.Infrestructure.dtos.responses.BaseResponse;
@@ -43,16 +44,12 @@ public class OrdenRepository implements IOrdenPort {
     }
 
     private BaseResponse from(OrdenResponse response, String message, boolean success, int code) {
-        BaseResponse base = new BaseResponse();
-        base.setData(response);
-        base.setMessage(message);
-        base.setSuccess(success);
-        base.setHttpStatus(HttpStatus.valueOf(code));
-        return base;
+        return BaseResponse.builder()
+                .data(response).message(message).success(success).httpStatus(HttpStatus.valueOf(code)).build();
     }
 
     public OrdenModel findAndEnsureExist(String id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("Not found"));
+        return repository.findById(id).orElseThrow(() -> new NotFoundException("Orden no encontrada"));
     }
 
     OrdenResponse from(OrdenModel ordenModel) {
@@ -65,12 +62,12 @@ public class OrdenRepository implements IOrdenPort {
     }
 
     BaseResponse from(List<OrdenResponse> responses, String message, boolean success, int code) {
-        BaseResponse base = new BaseResponse();
-        base.setData(responses);
-        base.setMessage(message);
-        base.setSuccess(success);
-        base.setHttpStatus(HttpStatus.valueOf(code));
-        return base;
+        return BaseResponse.builder()
+                .data(responses)
+                .message(message)
+                .success(success)
+                .httpStatus(HttpStatus.valueOf(code))
+                .build();
     }
 
 
